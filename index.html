@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Task & Study Planner</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <h1>Study Planner</h1>
+      <p id="today"></p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="col-main">
+      <div class="stats" aria-label="Progress">
+        <div class="stat"><span id="statDone">0</span><small>done</small></div>
+        <div class="stat"><span id="statOpen">0</span><small>open</small></div>
+        <div class="stat warn"><span id="statOverdue">0</span><small>overdue</small></div>
+        <div class="stat"><span id="statMinutes">0</span><small>min studied</small></div>
+      </div>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="barWrap"><div id="barFill"></div></div>
+
+      <form id="taskForm" class="card form">
+        <h2 id="formTitle">Add a task</h2>
+        <label>Task
+          <input id="title" required maxlength="80" placeholder="e.g. Finish chapter 4 notes">
+        </label>
+        <div class="row">
+          <label>Subject
+            <input id="subject" maxlength="30" placeholder="e.g. Databases">
+          </label>
+          <label>Due date
+            <input id="due" type="date">
+          </label>
+        </div>
+        <div class="row">
+          <label>Priority
+            <select id="priority">
+              <option value="3">High</option>
+              <option value="2" selected>Medium</option>
+              <option value="1">Low</option>
+            </select>
+          </label>
+          <label>Estimate (min)
+            <input id="estimate" type="number" min="5" step="5" placeholder="60">
+          </label>
+        </div>
+        <div class="actions">
+          <button type="submit" id="saveBtn" class="primary">Add task</button>
+          <button type="button" id="cancelEdit" class="ghost" hidden>Cancel</button>
+        </div>
+      </form>
+
+      <div class="toolbar">
+        <div class="tabs" role="tablist">
+          <button class="tab" data-filter="active" aria-selected="true">Open</button>
+          <button class="tab" data-filter="done" aria-selected="false">Done</button>
+          <button class="tab" data-filter="all" aria-selected="false">All</button>
+        </div>
+        <input id="search" type="search" placeholder="Search tasks or subjects" aria-label="Search">
+      </div>
+
+      <ul id="taskList" class="tasks"></ul>
+      <p id="empty" class="empty" hidden></p>
+    </section>
+
+    <aside class="col-side">
+      <div class="card photo focus">
+        <h2>Focus timer</h2>
+        <p id="timerTask" class="muted">Pick a task with Start</p>
+        <div id="timerDisplay" class="clock">25:00</div>
+        <p id="timerMode" class="muted">Focus</p>
+        <div class="actions">
+          <button id="timerToggle" class="primary">Start</button>
+          <button id="timerReset" class="ghost">Reset</button>
+        </div>
+      </div>
+
+      <div class="card photo next">
+        <h2>Do these first</h2>
+        <ol id="topThree"></ol>
+      </div>
+    </aside>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
